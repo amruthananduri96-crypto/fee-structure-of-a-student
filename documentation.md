@@ -81,3 +81,16 @@ WHILE temp != NULL
     temp = temp->next
 Step 16: Stop
 *****FLOW CHART****
+<img width="1024" height="1536" alt="Image" src="https://github.com/user-attachments/assets/d8a31f4d-2778-4c9c-ac72-365d3563b50f" />
+ **methodology**
+
+The program is developed to manage student fee records efficiently using a singly linked list, which enables dynamic memory allocation and easy insertion of records without requiring a fixed size. At the beginning, the head pointer is initialized to NULL, indicating that no student data is present. The program follows a menu-driven approach, allowing the user to repeatedly choose operations such as adding a new student, searching for an existing student, displaying all student records, or exiting the system.
+
+When the user selects the add student option, the program collects essential details such as roll number, paid fee, bus fee, and CDP fee. Based on the prefix of the roll number, the student is categorized into groups like PMS, PMSR, Management, or Non-PMS. Each category is associated with a predefined base fee. After determining the category and base fee, a new node is created to store all the student details. This node is then inserted at the end of the linked list by traversing from the head to the last node, ensuring that the order of insertion is maintained.
+
+For the search operation, the program asks the user to enter a roll number and then traverses the linked list sequentially to find a matching record. If the student is found, the program calculates the total fee by summing the base fee, bus fee, and CDP fee. It then computes the due amount by subtracting the paid fee from the total fee. Based on the due value, the program determines whether the student has fully paid the fees or still has a pending balance. All relevant details, including roll number, category, fee structure, total fee, paid amount, due amount, and payment status, are displayed clearly to the user. If the student is not found in the list, an appropriate message is displayed.
+
+
+In the display operation, the program traverses the entire linked list from the head node to the last node and prints the roll numbers (or details) of all students, showing the structure of the list. This helps the user view all stored records at once. The program continues to execute these operations in a loop, allowing multiple actions until the user selects the exit option. Once the exit option is chosen, the program terminates, completing the execution. This methodology ensures efficient data handling, easy searching, and flexible storage using linked list concepts.
+
+
