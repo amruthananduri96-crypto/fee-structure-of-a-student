@@ -1,0 +1,153 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Node structure
+struct Student {
+    string roll;
+    string category;
+    float paid_fee;
+    float bus_fee;
+    float cdp_fee;
+    float base_fee;
+    Student* next;
+};
+
+// Function to determine category
+string getCategory(string roll) {
+    if (roll.find("PMSR") == 0)
+        return "PMSR";
+    else if (roll.find("PMS") == 0)
+        return "PMS";
+    else if (roll.find("MGMT") == 0)
+        return "Management";
+    else
+        return "Non-PMS";
+}
+
+// Function to get base fee
+float getBaseFee(string category) {
+    if (category == "PMS")
+        return 50000;
+    else if (category == "PMSR")
+        return 30000;
+    else if (category == "Management")
+        return 80000;
+    else
+        return 60000;
+}
+
+// Insert student at end
+void insert(Student*& head) {
+    Student* newNode = new Student;
+
+    cout << "Enter Roll Number: ";
+    cin >> newNode->roll;
+
+    newNode->category = getCategory(newNode->roll);
+    newNode->base_fee = getBaseFee(newNode->category);
+
+    cout << "Enter Paid Fee: ";
+    cin >> newNode->paid_fee;
+
+    cout << "Enter Bus Fee: ";
+    cin >> newNode->bus_fee;
+
+    cout << "Enter CDP Fee: ";
+    cin >> newNode->cdp_fee;
+
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        head = newNode;
+    } else {
+        Student* temp = head;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newNode;
+    }
+
+    cout << "Student added successfully!\n";
+}
+
+// Search by roll number
+void search(Student* head, string roll) {
+    Student* temp = head;
+
+    while (temp != NULL) {
+        if (temp->roll == roll) {
+
+            float total = temp->base_fee + temp->bus_fee + temp->cdp_fee;
+            float due = total - temp->paid_fee;
+
+            cout << "\n--- Student Details ---\n";
+            cout << "Roll Number: " << temp->roll << endl;
+            cout << "Category: " << temp->category << endl;
+            cout << "Base Fee: " << temp->base_fee << endl;
+            cout << "Bus Fee: " << temp->bus_fee << endl;
+            cout << "CDP Fee: " << temp->cdp_fee << endl;
+            cout << "Total Fee: " << total << endl;
+            cout << "Paid Fee: " << temp->paid_fee << endl;
+            cout << "Due: " << due << endl;
+
+            if (due <= 0)
+                cout << "Status: Fully Paid\n";
+            else
+                cout << "Status: Pending\n";
+
+            return;
+        }
+        temp = temp->next;
+    }
+
+    cout << "Student not found!\n";
+}
+
+// Display all students
+void displayAll(Student* head) {
+    Student* temp = head;
+
+    while (temp != NULL) {
+        cout << temp->roll << " -> ";
+        temp = temp->next;
+    }
+    cout << "NULL\n";
+}
+
+// Main function
+int main() {
+    Student* head = NULL;
+    int choice;
+    string roll;
+
+    do {
+        cout << "\n1. Add Student\n";
+        cout << "2. Search Student\n";
+        cout << "3. Display All Rolls\n";
+        cout << "4. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                insert(head);
+                break;
+            case 2:
+                cout << "Enter Roll Number to search: ";
+                cin >> roll;
+                search(head, roll);
+                break;
+            case 3:
+                displayAll(head);
+                break;
+            case 4:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
